@@ -59,7 +59,6 @@ class ProfessionalActivity : AppCompatActivity() {
 
         indicator.setViewPager(viewpager)
 
-
         val thread = Thread(PagerRunnable())
         thread.start()
 

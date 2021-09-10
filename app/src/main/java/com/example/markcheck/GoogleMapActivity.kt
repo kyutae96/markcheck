@@ -55,7 +55,6 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_main)
 
-
         myLocationButton.setOnClickListener { onMyLocationButtonClick() }
 
         mapView.onCreate(savedInstanceState)
@@ -66,24 +65,16 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_CODE)
         }
 
-
-
         main_navigationView.setNavigationItemSelectedListener(this)
         setSupportActionBar(main_layout_toolbar) // 툴바를 액티비티의 앱바로 지정
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 드로어를 꺼낼 홈 버튼 활성화
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_account) // 홈버튼 이미지 변경
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
 
-
         val thread = Thread(PagerRunnable())
         thread.start()
-
-
         card_view.visibility = View.GONE
     }
-
-
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -109,12 +100,9 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return true
     }
 
-
-
     @SuppressLint("MissingPermission")
     fun initMap() {
         mapView.getMapAsync {
-
             intent.hasExtra("latitude")
             intent.hasExtra("longitude")
             intent.hasExtra("name")
@@ -141,8 +129,8 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
 
                 val marker: Marker = it.addMarker(makerOptions)
-                marker.tag =
-                    name[i].toString() + "/" + address[i].toString() + "/" + personnumber[i].toString()
+                //name, address, personnumber String 값, 배열 marker.tag으로 묶음
+                marker.tag = name[i].toString() + "/" + address[i].toString() + "/" + personnumber[i].toString()
 
                 it.uiSettings.isMyLocationButtonEnabled = false
                 when {
@@ -167,9 +155,8 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
 
             it.setOnMarkerClickListener { marker ->
-
                 card_view.visibility = View.VISIBLE
-
+                //name, address, personnumber로 구성된 marker.tag 배열 split
                 val arr = marker.tag.toString().split("/")
 
                 mark_name.text = arr[0]
@@ -196,13 +183,9 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     @SuppressLint("MissingPermission")
     fun getMyLocation(): LatLng {
-
         val locationProvider: String = LocationManager.GPS_PROVIDER
-
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
         val lastKnownLocation: Location = locationManager.getLastKnownLocation(locationProvider)!!
-
         return LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
     }
 
@@ -216,7 +199,6 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Toast.makeText(applicationContext, "위치사용권한 설정에 동의해주세요", Toast.LENGTH_LONG).show()
         }
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -238,12 +220,6 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         mapView.onLowMemory()
     }
 
-
-    //-------------------------------------------------------------------
-
-//-------------------------------------------------------------------------
-
-
     //2초 마다 페이지 넘기기
     inner class PagerRunnable : Runnable {
         override fun run() {
@@ -257,13 +233,11 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> { // 메뉴 버튼
-
                 main_drawer_layout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -295,7 +269,6 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return false
     }
 
-
     override fun onBackPressed() { //뒤로가기 처리
         when {
             main_drawer_layout.isDrawerOpen(GravityCompat.START) -> {
@@ -309,6 +282,7 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
             }
             else -> {
+                //앱 강제종료 -> stack 까지 사라지는건지? finish() 상위호환인지?
                 finishAffinity()
                 System.runFinalization()
                 exitProcess(0)
@@ -317,6 +291,4 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
     }
-
-
 }

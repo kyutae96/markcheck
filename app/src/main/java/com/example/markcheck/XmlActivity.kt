@@ -42,14 +42,9 @@ class XmlActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_xml)
 
-
         var textView = findViewById<TextView>(R.id.textView)
-
         textView.text = ""
-
         init()
-
-
     }
 
     private fun init() {
@@ -71,7 +66,9 @@ class XmlActivity : AppCompatActivity() {
                 var edit_text = edit_text.text.toString()
 
                 var site =
-                    "http://plus.kipris.or.kr/openapi/rest/CommonSearchService/CommonSearchAgentInfo?searchAddress=" + edit_text + "&docsStart=1&accessKey=Eir=7ZOQhPOeHEvArbBv79keP9LK8wY9=iZxbjbb1Ak="
+                    "http://plus.kipris.or.kr/openapi/rest/CommonSearchService/CommonSearchAgentInfo?searchAddress=" +
+                            edit_text +
+                            "&docsStart=1&accessKey=Eir=7ZOQhPOeHEvArbBv79keP9LK8wY9=iZxbjbb1Ak="
                 var url = URL(site)
                 var conn = url.openConnection()
                 var input = conn.getInputStream()
@@ -97,7 +94,6 @@ class XmlActivity : AppCompatActivity() {
                     var PersonNumber_list = item_element.getElementsByTagName("PersonNumber")
                     var Address_list = item_element.getElementsByTagName("Address")
                     var Name_list = item_element.getElementsByTagName("Name")
-
 
                     var IndexNumber_node = IndexNumber_list.item(0) as Element
                     var PersonNumber_node = PersonNumber_list.item(0) as Element
