@@ -192,7 +192,7 @@ class GoogleMapActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private fun onMyLocationButtonClick() {
         when {
             checkPermissions() ->
-                googleMap?.moveCamera(
+                googleMap!!.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(getMyLocation(), DEFAULT_ZOOM_LEVEL)
                 )
             else ->

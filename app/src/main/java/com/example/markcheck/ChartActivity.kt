@@ -82,7 +82,6 @@ class ChartActivity : AppCompatActivity() {
         l.yEntrySpace = 5f
         l.textColor = Color.WHITE
 
-
         radarChart.data = data
 
     }

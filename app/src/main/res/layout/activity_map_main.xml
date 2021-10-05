@@ -16,7 +16,6 @@
 
     <!--자식 레이아웃. Navigation Drawer-->
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_view"
         android:layout_width="match_parent"
